@@ -44,11 +44,12 @@ app.get('/:src/:id', (req, res) =>{
   if(id && src){
     if(src=="db"){
       id=atob(id)
-      viewer=`<a 
-        href="https://www.dropbox.com/${id}" 
-        class="dropbox-embed" data-height="80vh"
-        data-width="80vw"
-      ></a>`
+      let key = req.query.key
+      if(!key){
+        viewer='<h1>Error: Invalid Key</h1>'
+      }
+      viewer=`
+    <iframe style='width:80vw; height:80vh; border:none;' src='https://www.dropbox.com/${id}?rlkey=${key}&dl=0&raw=1'></iframe>`
     } else if(src=="gh"){
       let filepath = btoa(id)
       if(filepath.startsWith('/')){
