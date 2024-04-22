@@ -43,8 +43,9 @@ app.get('/:src/:id', (req, res) =>{
   let viewer = ''
   if(id && src){
     if(src=="db"){
+      id=atob(id)
       viewer=`<a 
-        href="https://www.dropbox.com/s/${id}" 
+        href="https://www.dropbox.com/${id}" 
         class="dropbox-embed" data-height="80vh"
         data-width="80vw"
       ></a>`
