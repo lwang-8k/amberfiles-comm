@@ -1,4 +1,4 @@
-let baseurl = "files.ambersys.app"
+let baseurl = "shadowy-broomstick-p5rqj5qjj7g37wx7-4000.app.github.dev"
 let thisurl = `https://${baseurl}/`
 let express = require('express');
 let app = express();
@@ -79,11 +79,46 @@ app.get('/:src/:id', (req, res) =>{
       if(filepath.startsWith('/')){
         filepath = filepath.slice(1)
       }
-      viewer=`File Viewer<br> <button><a href="${thisurl}">Home</a></button><br><iframe id="viewr" src="${thisurl}assets/host/${filepath}"></iframe>`
+      viewer=`File Viewer<br> <button><a href="${thisurl}">Home</a></button><br>
+      <iframe id="viewr" src="${thisurl}assets/host/${filepath}"></iframe>`
       viewer +=`
       <button><a target="_blank" href="${thisurl}assets/host/${filepath}">Open in a new tab</a></button>
       <button onclick="fs()">Fullscreen</button>
+      <button onclick="dl()">Download</button>
       <script>
+      function download_file(fileURL, fileName) {
+// for non-IE
+if (!window.ActiveXObject) {
+    var save = document.createElement('a');
+    save.href = fileURL;
+    save.target = '_blank';
+    var filename = fileURL.substring(fileURL.lastIndexOf('/')+1);
+    save.download = fileName || filename;
+       if ( navigator.userAgent.toLowerCase().match(/(ipad|iphone|safari)/) && navigator.userAgent.search("Chrome") < 0) {
+            document.location = save.href; 
+// window event not working here
+        }else{
+            var evt = new MouseEvent('click', {
+                'view': window,
+                'bubbles': true,
+                'cancelable': false
+            });
+            save.dispatchEvent(evt);
+            (window.URL || window.webkitURL).revokeObjectURL(save.href);
+        }   
+}
+
+// for IE < 11
+else if ( !! window.ActiveXObject && document.execCommand)     {
+    var _window = window.open(fileURL, '_blank');
+    _window.document.close();
+    _window.document.execCommand('SaveAs', true, fileName || fileURL)
+    _window.close();
+}
+}
+      function dl(){
+        download_file("${thisurl}assets/host/${filepath}", "${filepath.split('/')[filepath.split('/').length-1]}")
+      }
       function fs(){
         let elem = document.getElementById("viewr")
         if (elem.requestFullscreen) {
