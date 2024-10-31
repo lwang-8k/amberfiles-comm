@@ -57,6 +57,13 @@ app.get('/:src/:id', (req, res) =>{
       }
       viewer=`<iframe src="https://raw.githubusercontent.com/${filepath}"</iframe>`
 
+    } else if(src=="nv"){
+      let filepath = btoa(id)
+      if(filepath.startsWith('/')){
+        filepath = filepath.slice(1)
+      }
+      viewer=`<iframe src="https://files.ambersys.app/host/${filepath}"</iframe>`
+
     } else {
         viewer=`<h1>Error: Provide Valid Source</h1>`
     }
