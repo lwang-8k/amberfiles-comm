@@ -1,5 +1,5 @@
-// let baseurl = "shadowy-broomstick-p5rqj5qjj7g37wx7-4000.app.github.dev"
-let baseurl = "files.ambersys.app"
+let baseurl = "shadowy-broomstick-p5rqj5qjj7g37wx7-4000.app.github.dev"
+// let baseurl = "files.ambersys.app"
 let thisurl = `https://${baseurl}/`
 let express = require('express');
 let app = express();
@@ -9,6 +9,15 @@ app.get('/', (req, res, next)=>{
   <html>
 
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDWX1PFHXB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-JDWX1PFHXB');
+    </script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
     <title>Ambersys Files</title>
@@ -56,6 +65,7 @@ app.get('/', (req, res, next)=>{
   </html>`)
 })
 app.get('/:src/:id', (req, res) =>{
+  let titlev = "Ambersys Files"
   let src=req.params.src
   let id = req.params.id
   let viewer = ''
@@ -80,6 +90,7 @@ app.get('/:src/:id', (req, res) =>{
       if(filepath.startsWith('/')){
         filepath = filepath.slice(1)
       }
+      titlev = `${filepath.split('/')[filepath.split('/').length-1]} - Ambersys Files`
       viewer=`File Viewer<br> <button><a href="${thisurl}">Home</a></button><br>
       <iframe id="viewr" src="${thisurl}assets/host/${filepath}"></iframe>`
       viewer +=`
@@ -148,9 +159,18 @@ else if ( !! window.ActiveXObject && document.execCommand)     {
 <html>
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JDWX1PFHXB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-JDWX1PFHXB');
+  </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>Ambersys Files</title>
+  <title>${titlev}</title>
   <link rel="icon" type="image/x-icon" href="/assets/logo.png">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Comfortaa&family=Inter:wght@300&family=Work+Sans:wght@400;500&display=swap');
