@@ -226,15 +226,20 @@ app.get('/:src/:id', (req, res) =>{
             
             let obj = await fetch("/api/check/${filepath}")
             obj = await obj.json()
-            document.title=obj.title + " - Ambersys Files"
-            document.getElementById("dl").setAttribute("download", obj.title+"."+obj.filetype)
-            if(obj.locked){
+            if(obj.exists){
+              document.title=obj.title + " - Ambersys Files"
+              document.getElementById("dl").setAttribute("download", obj.title+"."+obj.filetype)
+              if(obj.locked){
                 let userpass = window.prompt("This file is password protected. Please enter the password")
                 populateIframe(document.querySelector('#viewr'), "/api/fetch/${filepath}", {"Authentication":"Bearer "+btoa(userpass)})
-            } else {
+              } else {
                 //#toolbar=0&navpanes=0&scrollbar=0&statusbar=0&messages=0&scrollbar=0
                 populateIframe(document.querySelector('#viewr'), "/api/fetch/${filepath}", {})
+              }
+            } else {
+              populateIframe(document.querySelector('#viewr'), "/assets/fail.html", {})
             }
+            
         }
         main()
       </script>
