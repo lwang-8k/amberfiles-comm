@@ -1,7 +1,7 @@
 // let baseurl = "redesigned-garbanzo-69rj4797rwr6hxpg-4000.app.github.dev"
-let baseurl = "files.ambersys.app"
+// let baseurl = "files.ambersys.app"
 
-let thisurl = `https://${baseurl}/`
+// let thisurl = `https://${baseurl}/`
 let express = require('express');
 let app = express();
 let fs = require('fs/promises')
@@ -246,13 +246,13 @@ app.get('/:src/:id', (req, res) =>{
       `
     } else {
         viewer=`<h1>Error: Provide Valid Source</h1>
-        <button><a href="${thisurl}">Home</a></button>
+        <button><a href="/">Home</a></button>
         `
     }
   } else {
     viewer=`<h1>Welcome to Ambersys Files.</h1> <br>
     That's an invalid link.<br>
-    <button><a href="${thisurl}">Home</a></button>
+    <button><a href="/">Home</a></button>
     <br>
     `
   }
@@ -316,7 +316,7 @@ app.get('/:src/:id', (req, res) =>{
 
 </html>`)
 })
-app.listen(4000)
+app.listen(5000)
 
   
 
