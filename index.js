@@ -2,6 +2,10 @@
 // let baseurl = "files.ambersys.app"
 
 // let thisurl = `https://${baseurl}/`
+
+// let root = __dirname
+let root = ""
+
 let express = require('express');
 let app = express();
 let fs = require('fs/promises')
@@ -82,7 +86,7 @@ app.get("/api/fetch/:file", async (req, res)=>{
           res.sendFile(`${__dirname}/auth.html`)
         }
       } else {
-        res.sendFile(`${__dirname}/auth2.html`)
+        res.sendFile(`${root}/auth2.html`)
       }
       
     } else {
