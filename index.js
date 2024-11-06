@@ -3,8 +3,8 @@
 
 // let thisurl = `https://${baseurl}/`
 
-// let root = __dirname
-let root = ""
+let root = __dirname
+// let root = ""
 
 let express = require('express');
 let app = express();
@@ -33,7 +33,7 @@ function hash(val){
 async function filecheck(filename){
   let exists = true;
   try {
-    await fs.access(`serve/meta/${filename}.json`)
+    await fs.access(`${root}/serve/meta/${filename}.json`)
   } catch (e){
     exists = false;
   }
